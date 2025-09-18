@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Press Start 2P', cursive;
+      background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGt1b2Z1Njl3a3RtZzU2NW95aWhlNWZ1N3YyMG0zNW4wbGFpMzcxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pVGsAWjzvXcZW4ZBTE/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 50px;
+      border-radius: 20px;
+      text-align: center;
+      animation: fadeIn 2s ease-out;
+    }
+
+    h1 {
+      color: #00ffcc;
+      font-size: 24px;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px #000;
+    }
+
+    .buttons a {
+      display: inline-block;
+      text-decoration: none;
+      margin: 10px;
+      padding: 15px 25px;
+      font-size: 14px;
+      background: #00ffcc;
+      color: #000;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
+    .buttons a:hover {
+      background: #000;
+      color: #00ffcc;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Welcome to Pixel Portal</h1>
+    <div class="buttons">
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    </div>
+  </div>
+</body>
+</html>

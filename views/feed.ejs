@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Public Feed | Pixel Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGt1b2Z1Njl3a3RtZzU2NW95aWhlNWZ1N3YyMG0zNW4wbGFpMzcxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pVGsAWjzvXcZW4ZBTE/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffcc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .feed-box {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+      width: 95%;
+      max-width: 700px;
+      text-align: center;
+      overflow-y: auto;
+      max-height: 95vh;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .post {
+      background: #111;
+      padding: 10px;
+      border: 1px solid #00ffcc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 10px;
+      text-align: left;
+    }
+
+    .post a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+
+    .post a:hover {
+      text-decoration: underline;
+    }
+
+    a.button {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 15px;
+      font-size: 12px;
+      font-family: 'Press Start 2P', cursive;
+      background: #00ffcc;
+      border: 2px solid #00ffcc;
+      color: #000;
+      text-decoration: none;
+    }
+
+    a.button:hover {
+      background: #000;
+      color: #00ffcc;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+  </style>
+</head>
+<body>
+  <div class="feed-box">
+    <h1>🌐 Public Feed</h1>
+
+    <% if (posts.length === 0) { %>
+      <div class="post">No public posts yet.</div>
+    <% } else { %>
+      <% posts.forEach(post => { %>
+        <div class="post">
+          <a href="/profile/<%= post.post_owner %>"><strong>@<%= post.post_owner %></strong></a>: <%= post.content %>
+        </div>
+      <% }); %>
+    <% } %>
+
+    <a class="button" href="/profile">← Back to My Profile</a>
+  </div>
+</body>
+</html>

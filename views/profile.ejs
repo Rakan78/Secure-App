@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile | Pixel Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGt1b2Z1Njl3a3RtZzU2NW95aWhlNWZ1N3YyMG0zNW4wbGFpMzcxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pVGsAWjzvXcZW4ZBTE/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffcc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .profile-box {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+      width: 95%;
+      max-width: 700px;
+      text-align: center;
+      overflow-y: auto;
+      max-height: 95vh;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 12px;
+      margin: 6px 0;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      margin: 15px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
+    .section {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .section h2 {
+      font-size: 14px;
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .post, .feature {
+      background: #111;
+      padding: 10px;
+      border: 1px solid #00ffcc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      border: 2px solid #00ffcc;
+      border-radius: 5px;
+      background: #000;
+      color: #00ffcc;
+      resize: none;
+      margin-bottom: 10px;
+    }
+
+    button, a {
+      padding: 8px 16px;
+      font-size: 10px;
+      font-family: 'Press Start 2P', cursive;
+      background: #00ffcc;
+      border: 2px solid #00ffcc;
+      color: #000;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    button:hover, a:hover {
+      background: #000;
+      color: #00ffcc;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
+    #search {
+      width: 100%;
+      padding: 10px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      border: 2px solid #00ffcc;
+      background: #000;
+      color: #00ffcc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    #searchResults div {
+      background: #111;
+      margin: 5px 0;
+      padding: 8px;
+      font-size: 10px;
+      border-left: 3px solid #00ffcc;
+    }
+
+    #searchResults a {
+      text-decoration: none;
+    }
+
+    #searchResults a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-box">
+    <h1>👾 Welcome, <%= user.name %>!</h1>
+    <img class="avatar" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2ZwaWF0aG1zZjhtdHNhM3o1MHZzbDd4aDA5cW9raTUzampyeW02MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o6ZsZwsU65E0qcok8/giphy.gif" alt="Avatar" />
+
+    <p><strong>Username:</strong> <%= user.username %></p>
+    <p><strong>Email:</strong> <%= user.email %></p>
+    <p><strong>Role:</strong> <%= user.role %></p>
+
+    <div class="section">
+      <h2>🔍 Search</h2>
+      <input type="text" id="search" placeholder="Search users or posts..." />
+      <div id="searchResults"></div>
+    </div>
+
+    <div class="section">
+      <h2>📝 Recent Posts</h2>
+      <div id="postList">
+        <div class="post">Loading posts...</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>➕ Add New Post</h2>
+      <form id="postForm">
+        <textarea id="newPost" rows="3" placeholder="Type your post..." required></textarea><br />
+        <button type="submit">Post</button>
+      </form>
+    </div>
+<a href="/feed" class="button">🌐 Public Feed</a>
+<a href="/admin" class="button">🛠️ Admin Panel</a>
+
+    <a href="#" id="logoutBtn">Logout</a>
+  </div>
+  <script src="/js/35535323532523.js"></script>
+  <script>
+    // Load user's own posts
+    async function loadPosts() {
+      const res = await fetch('/posts', { credentials: 'include' });
+      const data = await res.json();
+      const postList = document.getElementById('postList');
+      postList.innerHTML = '';
+
+      if (res.ok && data.posts.length) {
+        data.posts.forEach(post => {
+          const el = document.createElement('div');
+          el.className = 'post';
+          el.textContent = post.content;
+          postList.appendChild(el);
+        });
+      } else {
+        postList.innerHTML = '<div class="post">No posts yet.</div>';
+      }
+    }
+
+    // Post new message
+    document.getElementById('postForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const content = document.getElementById('newPost').value.trim();
+      if (!content) return;
+
+      const res = await fetch('/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ content })
+      });
+
+      if (res.ok) {
+        document.getElementById('newPost').value = '';
+        loadPosts();
+      } else {
+        alert('Failed to post.');
+      }
+    });
+
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async function (e) {
+      e.preventDefault();
+      const res = await fetch('/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      if (res.ok) {
+        window.location.href = '/';
+      } else {
+        alert('Logout failed.');
+      }
+    });
+
+    // Search users & posts
+    document.getElementById('search').addEventListener('input', async function () {
+      const q = this.value.trim();
+      const container = document.getElementById('searchResults');
+
+      if (!q) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const res = await fetch(`/search?q=${encodeURIComponent(q)}`, {
+        credentials: 'include'
+      });
+
+      if (!res.ok) {
+        container.innerHTML = '<div>Error searching.</div>';
+        return;
+      }
+
+      const data = await res.json();
+      container.innerHTML = '';
+
+      if (data.users.length === 0 && data.posts.length === 0) {
+        container.innerHTML = '<div>No results found.</div>';
+        return;
+      }
+
+      if (data.users.length) {
+        container.innerHTML += '<div><strong>Users:</strong></div>';
+        data.users.forEach(user => {
+          container.innerHTML += `<div><a href="/profile/${user.username}">${user.name} (@${user.username})</a></div>`;
+        });
+      }
+
+      if (data.posts.length) {
+        container.innerHTML += '<div style="margin-top:10px;"><strong>Posts:</strong></div>';
+        data.posts.forEach(post => {
+          container.innerHTML += `<div>${post.post_owner}: ${post.content}</div>`;
+        });
+      }
+    });
+
+    // Initial load
+    loadPosts();
+  </script>
+</body>
+</html>

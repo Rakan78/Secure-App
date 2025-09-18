@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGt1b2Z1Njl3a3RtZzU2NW95aWhlNWZ1N3YyMG0zNW4wbGFpMzcxMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pVGsAWjzvXcZW4ZBTE/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffcc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .panel {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffcc;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    code {
+      background: #111;
+      padding: 10px;
+      display: inline-block;
+      font-size: 12px;
+      border: 1px solid #00ffcc;
+      border-radius: 5px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>👨‍💻 Admin Access Granted</h1>
+    <p>Here is your flag:</p>
+    <code><%= flag %>}</code>
+  </div>
+</body>
+</html>
